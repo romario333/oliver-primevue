@@ -3,11 +3,6 @@
     <!-- Topbar -->
     <div class="topbar">
       <Button
-        icon="pi pi-home"
-        aria-label="Toggle Menu"
-        @click="sidebarVisible = !sidebarVisible"
-      />
-      <Button
         icon="pi pi-bars"
         @click="sidebarVisible = !sidebarVisible"
         severity="secondary"
@@ -28,10 +23,6 @@
         <NuxtLink to="/eshop" class="nav-item">
           <i class="pi pi-shopping-cart"></i>
           <span v-if="sidebarVisible">E-Shop</span>
-        </NuxtLink>
-        <NuxtLink to="/products/1" class="nav-item">
-          <i class="pi pi-box"></i>
-          <span v-if="sidebarVisible">Products</span>
         </NuxtLink>
       </nav>
     </div>

@@ -31,12 +31,15 @@
     <div class="main-content" :class="{ 'content-expanded': !sidebarVisible }">
       <NuxtPage />
     </div>
+
+    <Toast />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import Button from "primevue/button";
+import Toast from "primevue/toast";
 
 const sidebarVisible = ref(true);
 </script>
@@ -158,5 +161,21 @@ const sidebarVisible = ref(true);
   .content-expanded {
     margin-left: 0;
   }
+}
+
+/* Slide right transition (eshop → products) */
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
 }
 </style>

@@ -13,6 +13,13 @@
 <script setup lang="ts">
 import Button from "primevue/button";
 
+definePageMeta({
+  pageTransition: {
+    mode: "out-in",
+    name: "slide-right",
+  },
+});
+
 const router = useRouter();
 
 const { id } = useRoute().params;

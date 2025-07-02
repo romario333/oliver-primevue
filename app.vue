@@ -4,31 +4,52 @@
     <div class="topbar">
       <Button
         icon="pi pi-bars"
-        @click="sidebarVisible = !sidebarVisible"
+        @click="toggleSidebar"
         severity="secondary"
         text
         rounded
         aria-label="Toggle Menu"
       />
-      <h1 class="app-title">My Application</h1>
+      <h1 class="app-title">PrimeVue Prototype</h1>
     </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar" :class="{ 'sidebar-collapsed': !sidebarVisible }">
-      <nav class="nav-menu">
-        <NuxtLink to="/" class="nav-item">
-          <i class="pi pi-home"></i>
-          <span v-if="sidebarVisible">Home</span>
+    <!-- PrimeVue Sidebar for mobile -->
+    <Sidebar v-model:visible="mobileSidebarVisible" :modal="true" class="w-64">
+      <nav class="flex flex-col gap-2">
+        <NuxtLink to="/" class="nav-link" @click="mobileSidebarVisible = false">
+          <i class="pi pi-home text-xl"></i>
+          <span>Home</span>
         </NuxtLink>
-        <NuxtLink to="/eshop" class="nav-item">
-          <i class="pi pi-shopping-cart"></i>
-          <span v-if="sidebarVisible">E-Shop</span>
+        <NuxtLink
+          to="/eshop"
+          class="nav-link"
+          @click="mobileSidebarVisible = false"
+        >
+          <i class="pi pi-shopping-cart text-xl"></i>
+          <span>E-Shop</span>
+        </NuxtLink>
+      </nav>
+    </Sidebar>
+
+    <!-- Desktop Sidebar -->
+    <div v-if="desktopSidebarVisible && !isMobile" class="desktop-sidebar">
+      <nav class="flex flex-col gap-2 p-4">
+        <NuxtLink to="/" class="nav-link">
+          <i class="pi pi-home text-xl"></i>
+          <span>Home</span>
+        </NuxtLink>
+        <NuxtLink to="/eshop" class="nav-link">
+          <i class="pi pi-shopping-cart text-xl"></i>
+          <span>E-Shop</span>
         </NuxtLink>
       </nav>
     </div>
 
     <!-- Main Content -->
-    <div class="main-content" :class="{ 'content-expanded': !sidebarVisible }">
+    <div
+      class="main-content"
+      :class="{ 'with-sidebar': desktopSidebarVisible && !isMobile }"
+    >
       <NuxtPage />
     </div>
 
@@ -37,34 +58,48 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import Button from "primevue/button";
 import Toast from "primevue/toast";
+import Sidebar from "primevue/sidebar";
+import { useWindowSize } from "@vueuse/core";
 
-const sidebarVisible = ref(true);
+const { width: windowWidth } = useWindowSize();
+
+const desktopSidebarVisible = ref(true);
+const mobileSidebarVisible = ref(false);
+
+const isMobile = computed(() => windowWidth.value < 1024);
+
+const toggleSidebar = () => {
+  if (isMobile.value) {
+    mobileSidebarVisible.value = true;
+  } else {
+    desktopSidebarVisible.value = !desktopSidebarVisible.value;
+  }
+};
 </script>
 
-<style scoped>
+<style>
 .app-layout {
-  display: grid;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 250px 1fr;
-  grid-template-areas:
-    "topbar topbar"
-    "sidebar content";
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .topbar {
-  grid-area: topbar;
   display: flex;
   align-items: center;
   padding: 0 1rem;
+  height: 60px;
   background-color: var(--p-surface-0);
   border-bottom: 1px solid var(--p-surface-200);
   gap: 1rem;
-  z-index: 100;
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .app-title {
@@ -74,93 +109,48 @@ const sidebarVisible = ref(true);
   color: var(--p-text-color);
 }
 
-.sidebar {
-  grid-area: sidebar;
+.desktop-sidebar {
+  position: fixed;
+  left: 0;
+  top: 60px;
+  width: 16rem;
+  height: calc(100vh - 60px);
   background-color: var(--p-surface-50);
   border-right: 1px solid var(--p-surface-200);
-  transition: width 0.3s ease, transform 0.3s ease;
-  overflow: hidden;
-  width: 250px;
+  overflow-y: auto;
 }
 
-.sidebar-collapsed {
-  width: 60px;
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-top: 60px;
+  background-color: var(--p-surface-ground);
+  transition: margin-left 0.3s ease;
 }
 
-.nav-menu {
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
+.main-content.with-sidebar {
+  margin-left: 16rem;
 }
 
-.nav-item {
+.nav-link {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   color: var(--p-text-color);
   text-decoration: none;
+  border-radius: 0.5rem;
   transition: background-color 0.2s;
-  white-space: nowrap;
 }
 
-.nav-item:hover {
+.nav-link:hover {
   background-color: var(--p-surface-100);
 }
 
-.nav-item.router-link-active {
+.nav-link.router-link-active {
   background-color: var(--p-primary-50);
-  color: var(--p-primary-color);
+  color: var(--p-primary-700);
   font-weight: 600;
-}
-
-.nav-item i {
-  font-size: 1.25rem;
-  width: 1.25rem;
-  text-align: center;
-}
-
-.main-content {
-  grid-area: content;
-  padding: 2rem;
-  overflow-y: auto;
-  background-color: var(--p-surface-ground);
-  transition: margin-left 0.3s ease;
-}
-
-.content-expanded {
-  grid-column: 1 / -1;
-  margin-left: 60px;
-}
-
-@media (max-width: 768px) {
-  .app-layout {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "topbar"
-      "content";
-  }
-
-  .sidebar {
-    position: fixed;
-    left: 0;
-    top: 60px;
-    height: calc(100vh - 60px);
-    z-index: 99;
-    transform: translateX(0);
-  }
-
-  .sidebar-collapsed {
-    transform: translateX(-100%);
-  }
-
-  .main-content {
-    grid-column: 1;
-  }
-
-  .content-expanded {
-    margin-left: 0;
-  }
 }
 
 /* Slide right transition (eshop → products) */

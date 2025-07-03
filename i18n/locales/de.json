@@ -1,0 +1,11 @@
+{
+  "First name": "Vorname",
+  "Last name": "Nachname",
+  "Email": "Email",
+  "Date of birth": "Geburtsdatum",
+  "Time of birth": "Geburtszeit",
+  "Submit": "Absenden",
+  "This field is required": "Dieses Feld ist erforderlich",
+  "The value length should be at least {min}": "Die Länge der Eingabe muss mindestens {min} Zeichen betragen",
+  "The value must be an valid email address": "Die Eingabe muss eine gültige E-Mail-Adresse sein"
+}

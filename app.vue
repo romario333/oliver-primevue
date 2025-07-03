@@ -19,6 +19,7 @@
         rounded
         aria-label="Toggle Menu"
       />
+      <LanguageSelect />
     </div>
 
     <!-- PrimeVue Sidebar for mobile -->

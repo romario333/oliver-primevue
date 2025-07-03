@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-4 w-full max-w-md">
     <InputText
-      placeholder="First name"
+      :placeholder="$t('First name')"
       v-model="r$.$value.firstName"
       :invalid="r$.firstName.$errors[0] !== undefined"
     />
@@ -9,7 +9,7 @@
       {{ r$.firstName.$errors[0] }}
     </Message>
     <InputText
-      placeholder="Last name"
+      :placeholder="$t('Last name')"
       v-model="r$.$value.lastName"
       :invalid="r$.lastName.$errors[0] !== undefined"
     />
@@ -17,7 +17,7 @@
       {{ r$.lastName.$errors[0] }}
     </Message>
     <InputText
-      placeholder="Email"
+      :placeholder="$t('Email')"
       v-model="r$.$value.email"
       :invalid="r$.email.$errors[0] !== undefined"
     />
@@ -25,9 +25,12 @@
       {{ r$.email.$errors[0] }}
     </Message>
 
-    <DatePicker placeholder="Date of birth" v-model="r$.$value.dateOfBirth" />
     <DatePicker
-      placeholder="Time of birth"
+      :placeholder="$t('Date of birth')"
+      v-model="r$.$value.dateOfBirth"
+    />
+    <DatePicker
+      :placeholder="$t('Time of birth')"
       v-model="r$.$value.timeOfBirth"
       timeOnly
     />
@@ -35,7 +38,7 @@
     <Button
       type="submit"
       severity="secondary"
-      label="Submit"
+      :label="$t('Submit')"
       :loading="submitting"
       @click="submit"
     />
@@ -49,6 +52,9 @@ import { useRegle } from "@regle/core";
 import { required, minLength, email } from "@regle/rules";
 import DatePicker from "primevue/datepicker";
 import Message from "primevue/message";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 interface Person {
   id: string;
@@ -70,9 +76,25 @@ const person = ref<Person>({
 const submitting = ref(false);
 
 const { r$ } = useRegle(person, {
-  firstName: { required, minLength: minLength(3) },
-  lastName: { required, minLength: minLength(3) },
-  email: { required, email, minLength: minLength(4) },
+  firstName: {
+    required: withMessage(required, t("This field is required")),
+    minLength: withMessage(minLength(3), ({ $params: [min] }) =>
+      t("The value length should be at least {min}", { min })
+    ),
+  },
+  lastName: {
+    required: withMessage(required, t("This field is required")),
+    minLength: withMessage(minLength(3), ({ $params: [min] }) =>
+      t("The value length should be at least {min}", { min })
+    ),
+  },
+  email: {
+    required: withMessage(required, t("This field is required")),
+    email: withMessage(email, t("The value must be an valid email address")),
+    minLength: withMessage(minLength(4), ({ $params: [min] }) =>
+      t("The value length should be at least {min}", { min })
+    ),
+  },
 });
 
 watch(

@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
-  modules: ["@primevue/nuxt-module"],
+  modules: ["@primevue/nuxt-module", "@regle/nuxt"],
   primevue: {
     options: {
       theme: {

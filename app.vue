@@ -11,6 +11,14 @@
         aria-label="Toggle Menu"
       />
       <h1 class="app-title">PrimeVue Prototype</h1>
+      <Button
+        icon="pi pi-sun"
+        @click="toggleTheme"
+        severity="secondary"
+        text
+        rounded
+        aria-label="Toggle Menu"
+      />
     </div>
 
     <!-- PrimeVue Sidebar for mobile -->
@@ -77,6 +85,10 @@ const toggleSidebar = () => {
   } else {
     desktopSidebarVisible.value = !desktopSidebarVisible.value;
   }
+};
+
+const toggleTheme = () => {
+  document.documentElement.classList.toggle("my-app-dark");
 };
 </script>
 

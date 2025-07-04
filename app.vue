@@ -46,7 +46,9 @@
 
     <div class="main-content">
       <Toast class="p-toast" />
-      <NuxtPage />
+      <div class="pl-4 pr-4 pb-4 md:pl-8 md:pr-8 md:pb-8">
+        <NuxtPage />
+      </div>
     </div>
   </div>
 </template>
@@ -86,8 +88,7 @@ const toggleTheme = () => {
 
 .main-content {
   flex: 1;
-  padding: 2rem;
-  margin-top: 60px;
+  margin-top: 100px;
   background-color: var(--p-surface-ground);
   transition: margin-left 0.3s ease;
 }

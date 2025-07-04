@@ -45,21 +45,26 @@ With Shadcn-vue, there are some red flags:
 
 ## Ease of use
 
-Vuetify is the easiest to use. It's pretty straighforward to use, has good documentation and it's the fastest way to get a project up and running, especially if you're not a UX designer. Tradeoff here is, that it lacks on customizability, and basically locks you into the Material Design.
+Vuetify is the easiest to use. Works well on desktop and mobile out of the box. It gives you all the components you need to develop a decent looking app, even if you're not a UX designer. Tradeoff here is, that it lacks on customizability, and basically locks you into the Material Design.
 
-Primevue is a bit more complex, but once you get over the initial not very steep learning curve, it's as easy to use as Vuetify.
+Primevue is a bit more complex. Starting with it takes a bit more effort. Some examples:
+
+- No top navigator component: https://github.com/primefaces/primevue/issues/771
+- Toast does not fit the screen on mobile: https://github.com/primefaces/primeng/issues/9930
+
+These issues are annoying, but not deal-breakers. They can be fixed pretty easily on the application side.
 
 ## Customization
 
-Vuetify is the less flexible, if you use it, you'll use the Material Design.
+Vuetify is not very flexible.
 
-Primevue is more flexible, offering two modes of UX customization:
+Primevue offers two modes of UX customization:
 
 - Styled mode
   - Styles are provided by the library as themes. These themes can be customized, or replaced with 3rd-party themes.
 - Unstyled mode
   - The library implements only behavior of the components, not their design. You can provide your own design by using for example Tailwind.
-  - Volt - new project by PrimeTek, similar to shadcn in philosophy: built with tailwind, uses unstyled Primevue. User copies the components into their repository and own the design part.
+  - Volt - new project by PrimeTek, similar to shadcn in philosophy: built with tailwind, uses unstyled Primevue. User copies the components into their repository and owns the design part.
 
 ## Richness
 
@@ -73,9 +78,13 @@ All libraries are flexible as to what you can use for form validation.
 
 ## Localization
 
+For localization all libraries integrate with `vue-i18n`.
+
 ## Licenses
 
 All libraries are offered under the standard OSS licenses and can be used free of charge, in commercial projects and without attribution.
+
+## Bundle size
 
 -- TODO:
 

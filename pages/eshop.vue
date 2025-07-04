@@ -5,12 +5,11 @@
     </template>
 
     <template #list="slotProps">
-      <div v-for="item in slotProps.items" :key="item.id" class="p-3">
-        <NuxtLink
-          :to="`/products/${item.id}`"
-          class="text-gray-900 no-underline hover:bg-gray-50 block rounded-lg transition-colors"
-        >
-          <div class="flex items-center">
+      <div v-for="item in slotProps.items" :key="item.id">
+        <NuxtLink :to="`/products/${item.id}`" class="">
+          <div
+            class="flex items-center p-3 product-list-item transition-colors duration-200 ease-in-out"
+          >
             <Avatar
               :image="`https://picsum.photos/200/300?random=${item.id}`"
               class="mr-4"
@@ -42,3 +41,13 @@ const products = ref<Product[]>([]);
 
 products.value = await fetchProducts();
 </script>
+
+<style scoped>
+.product-list-item:hover {
+  background-color: var(--p-surface-100);
+}
+
+.my-app-dark .product-list-item:hover {
+  background-color: var(--p-surface-900);
+}
+</style>

@@ -1,6 +1,6 @@
-# Evalutation of UI libraries
+# Evalutation of UI Libraries
 
-The goal of this document is to evaluate candidate UI libraries for the new app we're starting. I'm evaluating three libraries here. For each I have created a simple prototype:
+This document evaluates candidate UI libraries for our upcoming app. I've created simple prototypes for each:
 
 - **Primevue**: https://github.com/romario333/oliver-primevue
 - **Vuetify**: https://github.com/romario333/oliver-vuetify
@@ -8,69 +8,64 @@ The goal of this document is to evaluate candidate UI libraries for the new app 
 
 ## tl;dr
 
-Both **Primevue** and **Vuetify** are well-maintained projects with a long history. Primevue is more flexible and has a company behind it. Vuetify is easier to use.
+Both **Primevue** and **Vuetify** are well-maintained projects with long histories. Primevue is more flexible and backed by a dedicated company. Vuetify offers better ease of use out-of-the-box.
 
-**Shadcn-vue** is the odd one. I have serious doubts about its "own your component implementation" approach, and also about the long-term health of the project. More on that later.
+**Shadcn-vue** raises concerns due to its "own your component" approach and uncertain long-term viability.
 
-## Project health
+## Project Health
 
-To evaluate project health, it's useful to look at the contributor stats:
+### Contributor Activity
 
-- primevue: https://github.com/primefaces/primevue/graphs/contributors
-- vuetify: https://github.com/vuetifyjs/vuetify/graphs/contributors
-- shadcn-vue:
-  - https://github.com/unovue/shadcn-vue/graphs/contributors
-  - https://github.com/unovue/reka-ui/graphs/contributors
+Contributor statistics provide a snapshot of project health:
 
-PrimeVue has 3 active contributors, Vuetify 2 and shadcn-vue 1.
+- [Primevue](https://github.com/primefaces/primevue/graphs/contributors): 3 active contributors
+- [Vuetify](https://github.com/vuetifyjs/vuetify/graphs/contributors): 2 active contributors
+- [Shadcn-vue](https://github.com/unovue/shadcn-vue/graphs/contributors), [Reka-ui](https://github.com/unovue/reka-ui/graphs/contributors): 1 active contributor
 
-PrimeVue clearly wins here, especially do to the fact that it's being developed by a for-profit company.
+PrimeVue clearly leads here due to corporate backing and sustained activity. Vuetify is a solid choice as well.
 
 Vuetify is a solid choice.
 
-Both Primevue and Vuetify have long history and seem to be well-maintained. Shadcn-vue is relatively new (first commit in 2023) and the contribution activity seems to be slowing down. This is especially concerning because the project is a one-man show.
+### Long-term Sustainability
 
-Another interesting metric is the number of weekly npm downloads:
+- **PrimeVue** and **Vuetify** are mature, continuously maintained projects.
+- **Shadcn-vue** is newer (first commit in 2023), and activity is already slowing down, raising potential sustainability concerns. This is especially concerning because the project is a one-man show.
 
-- primevue: 300k
-- vuetify: 662k
-- shadcn-vue
-  - `shadcn-vue` itself is just CLI, so number of downloads is a poor indicator
-  - we can look at `reka-ui` though, which has 262k download. What I don't know is whether these are all shadcn-vue users.
+### Popularity (Weekly npm Downloads)
 
-With Shadcn-vue, there are some red flags:
+- **PrimeVue**: ~300k
+- **Vuetify**: ~662k
+- **Shadcn-vue**: Difficult to assess; `shadcn-vue` itself is just CLI, so number of downloads is a poor indicator. Its underlying `reka-ui` library has ~262k weekly downloads, though unclear if exclusively from Shadcn-vue.
 
-- It's based on the shadcn (React). Shadcn itself is not without controversies. It heavily builds on radix, which has recently lost its core team and the future of the project is uncertain.
-- There are occasional bugs in the documentation.
+### Red Flags (Shadcn-vue)
 
-## Ease of use
+- It's based on the Shadcn (React). Shadcn itself is not without controversies. It heavily builds on Radix, which has recently lost its core team and the future of the project is uncertain.
+- Documentation occasionally has noticeable bugs.
 
-Vuetify is the easiest to use. Works well on desktop and mobile out of the box. It gives you all the components you need to develop a decent looking app, even if you're not a UX designer. Tradeoff here is, that it lacks on customizability, and basically locks you into the Material Design.
+## Ease of Use
 
-Primevue is a bit more complex. Starting with it takes a bit more effort. Some examples:
+**Vuetify** offers the best out-of-the-box experience, suitable for both desktop and mobile without significant customization. However, it ties you strictly to Material Design, limiting flexibility.
 
-- No top navigator component: https://github.com/primefaces/primevue/issues/771
-- Toast does not fit the screen on mobile: https://github.com/primefaces/primeng/issues/9930
+**Primevue** requires a slightly higher initial effort. Notable issues:
 
-These issues are annoying, but not deal-breakers. They can be fixed pretty easily on the application side.
+- [Missing top navigator component](https://github.com/primefaces/primevue/issues/771)
+- [Toast does not fit the screen on mobile](https://github.com/primefaces/primeng/issues/9930)
 
-## Customization
+These issues, while inconvenient, are straightforward to address on the application level.
 
-Vuetify is not very flexible.
+### Customization
 
-Primevue offers two modes of UX customization:
+- **Vuetify** offers limited flexibility due to adherence to Material Design.
+- **Primevue** offers following customization modes:
+  - **Styled Mode**: Predefined themes customizable or replaceable with third-party themes.
+  - **Unstyled Mode**: Components only provide functionality; developers implement the design (e.g., using Tailwind).
+  - **Volt**: A new PrimeTek project (2025) similar to Shadcn, enabling component-level ownership with Tailwind styling.
 
-- Styled mode
-  - Styles are provided by the library as themes. These themes can be customized, or replaced with 3rd-party themes.
-- Unstyled mode
-  - The library implements only behavior of the components, not their design. You can provide your own design by using for example Tailwind.
-  - Volt - new project by PrimeTek, similar to shadcn in philosophy: built with tailwind, uses unstyled Primevue. User copies the components into their repository and owns the design part.
+## Component Richness
 
-## Richness
+Both **Vuetify** and **Primevue** offer extensive and feature-rich component sets.
 
-Both Vuetify and Primevue offer a large number of components with rich behavior.
-
-Shadcn-vue does not offer that many components, and also components provided do not satisfy all the requirements you would expect (e.g. no loading indication on button, no dropdown date picker control, no virtual scroller).
+**Shadcn-vue** provides fewer components with limited functionality. Some examples of missing nice-to-have functionalities: loading states for buttons, dropdown date pickers, virtual scrolling.
 
 ## Forms
 
@@ -78,21 +73,14 @@ All libraries are flexible as to what you can use for form validation.
 
 ## Localization
 
-For localization all libraries integrate with `vue-i18n`.
+All libraries integrate seamlessly with `vue-i18n` for localization.
 
 ## Licenses
 
-All libraries are offered under the standard OSS licenses and can be used free of charge, in commercial projects and without attribution.
+All libraries use standard OSS licenses, permitting commercial use without fees or attribution.
 
 ## Bundle size
 
-Shadcn-vue wins here.
-
-- licence - mit
-- styled vs unstyled, customizability, UIKit
-- localization
-- form validation
-- Shopify & Pohoda
-- Bundle Size
-- fix mobile view for the primevue
-- https://www.figma.com/community/file/1154678001663255824/prime-4-0-free-version-of-design-system-kit
+- **Shadcn-vue** naturally excels here due to minimal built-in functionality.
+- **Primevue**: I wasn't able to get tree-shaking to work. However I can manually specify which components to include in `nuxt.config.ts`. Further research is needed, see: https://github.com/primefaces/primevue-nuxt-module/issues/56
+- **Vuetify**: Tree-shaking works seamlessly, though resulting bundles are somewhat larger than PrimeVue.

@@ -10,6 +10,10 @@ export default defineNuxtConfig({
 
   modules: ["@primevue/nuxt-module", "@regle/nuxt", "@nuxtjs/i18n"],
   primevue: {
+    // autoImport: true, // to enable tree-shaking
+    components: {
+      include: ["Button", "Toolbar", "Sidebar", "Toast", "Avatar", "DataView"],
+    },
     options: {
       theme: {
         preset: Aura,

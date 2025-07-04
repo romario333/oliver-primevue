@@ -34,6 +34,7 @@
 <script setup lang="ts">
 import { useToast } from "primevue/usetoast";
 import SampleForm from "~/components/SampleForm.vue";
+import Button from "primevue/button";
 
 const toast = useToast();
 

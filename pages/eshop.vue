@@ -28,6 +28,7 @@
 import { ref } from "vue";
 import type { Product } from "~/composables/useProducts";
 import DataView from "primevue/dataview";
+import Avatar from "primevue/avatar";
 
 definePageMeta({
   pageTransition: {

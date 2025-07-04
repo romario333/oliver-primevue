@@ -86,7 +86,7 @@ All libraries are offered under the standard OSS licenses and can be used free o
 
 ## Bundle size
 
--- TODO:
+Shadcn-vue wins here.
 
 - licence - mit
 - styled vs unstyled, customizability, UIKit

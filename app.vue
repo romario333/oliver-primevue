@@ -1,91 +1,67 @@
 <template>
   <div class="app-layout">
-    <!-- Topbar -->
-    <div class="topbar">
-      <Button
-        icon="pi pi-bars"
-        @click="toggleSidebar"
-        severity="secondary"
-        text
-        rounded
-        aria-label="Toggle Menu"
-      />
-      <h1 class="app-title">PrimeVue Prototype</h1>
-      <Button
-        icon="pi pi-sun"
-        @click="toggleTheme"
-        severity="secondary"
-        text
-        rounded
-        aria-label="Toggle Menu"
-      />
-      <LanguageSelect />
-    </div>
+    <Toolbar class="app-header">
+      <template #start>
+        <div class="flex items-center gap-2">
+          <Button
+            icon="pi pi-bars"
+            @click="toggleSidebar"
+            severity="secondary"
+            text
+            rounded
+            aria-label="Toggle Menu"
+          />
+          <h1>PrimeVue Prototype</h1>
+        </div>
+      </template>
+      <template #end>
+        <div class="flex items-center gap-2">
+          <Button
+            icon="pi pi-sun"
+            @click="toggleTheme"
+            severity="secondary"
+            text
+            rounded
+            aria-label="Toggle Menu"
+          />
+          <div class="hidden md:block">
+            <LanguageSelect />
+          </div>
+        </div>
+      </template>
+    </Toolbar>
 
-    <!-- PrimeVue Sidebar for mobile -->
-    <Sidebar v-model:visible="mobileSidebarVisible" :modal="true" class="w-64">
+    <Sidebar v-model:visible="sidebarVisible" :modal="true" class="w-64">
       <nav class="flex flex-col gap-2">
-        <NuxtLink to="/" class="nav-link" @click="mobileSidebarVisible = false">
+        <NuxtLink to="/" class="nav-link" @click="sidebarVisible = false">
           <i class="pi pi-home text-xl"></i>
           <span>Home</span>
         </NuxtLink>
-        <NuxtLink
-          to="/eshop"
-          class="nav-link"
-          @click="mobileSidebarVisible = false"
-        >
+        <NuxtLink to="/eshop" class="nav-link" @click="sidebarVisible = false">
           <i class="pi pi-shopping-cart text-xl"></i>
           <span>E-Shop</span>
         </NuxtLink>
       </nav>
     </Sidebar>
 
-    <!-- Desktop Sidebar -->
-    <div v-if="desktopSidebarVisible && !isMobile" class="desktop-sidebar">
-      <nav class="flex flex-col gap-2 p-4">
-        <NuxtLink to="/" class="nav-link">
-          <i class="pi pi-home text-xl"></i>
-          <span>Home</span>
-        </NuxtLink>
-        <NuxtLink to="/eshop" class="nav-link">
-          <i class="pi pi-shopping-cart text-xl"></i>
-          <span>E-Shop</span>
-        </NuxtLink>
-      </nav>
-    </div>
-
-    <!-- Main Content -->
-    <div
-      class="main-content"
-      :class="{ 'with-sidebar': desktopSidebarVisible && !isMobile }"
-    >
+    <div class="main-content">
+      <Toast class="p-toast" />
       <NuxtPage />
     </div>
-
-    <Toast />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from "vue";
+import { ref } from "vue";
 import Button from "primevue/button";
 import Toast from "primevue/toast";
 import Sidebar from "primevue/sidebar";
-import { useWindowSize } from "@vueuse/core";
+import Toolbar from "primevue/toolbar";
 
-const { width: windowWidth } = useWindowSize();
-
-const desktopSidebarVisible = ref(true);
-const mobileSidebarVisible = ref(false);
-
-const isMobile = computed(() => windowWidth.value < 1024);
+const sidebarVisible = ref(false);
 
 const toggleSidebar = () => {
-  if (isMobile.value) {
-    mobileSidebarVisible.value = true;
-  } else {
-    desktopSidebarVisible.value = !desktopSidebarVisible.value;
-  }
+  sidebarVisible.value = true;
 };
 
 const toggleTheme = () => {
@@ -100,37 +76,12 @@ const toggleTheme = () => {
   flex-direction: column;
 }
 
-.topbar {
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-  height: 60px;
-  background-color: var(--p-surface-0);
-  border-bottom: 1px solid var(--p-surface-200);
-  gap: 1rem;
-  z-index: 50;
+.app-header {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-}
-
-.app-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--p-text-color);
-}
-
-.desktop-sidebar {
-  position: fixed;
-  left: 0;
-  top: 60px;
-  width: 16rem;
-  height: calc(100vh - 60px);
-  background-color: var(--p-surface-50);
-  border-right: 1px solid var(--p-surface-200);
-  overflow-y: auto;
+  width: 100%;
+  z-index: 50;
 }
 
 .main-content {
@@ -139,10 +90,6 @@ const toggleTheme = () => {
   margin-top: 60px;
   background-color: var(--p-surface-ground);
   transition: margin-left 0.3s ease;
-}
-
-.main-content.with-sidebar {
-  margin-left: 16rem;
 }
 
 .nav-link {
@@ -180,5 +127,10 @@ const toggleTheme = () => {
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(100%);
+}
+
+/* https://github.com/primefaces/primeng/issues/9930 */
+.p-toast {
+  max-width: calc(100vw - 40px);
 }
 </style>

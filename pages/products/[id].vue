@@ -6,7 +6,7 @@
       icon="pi pi-arrow-left"
       @click="router.back()"
     />
-    <h1>Product {{ id }}</h1>
+    <h1 class="mt-4">Product {{ id }}</h1>
   </div>
 </template>
 

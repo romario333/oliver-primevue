@@ -9,7 +9,7 @@
     @click="like"
   />
 
-  <div class="flex flex-row gap-2 mt-10">
+  <div class="flex flex-col md:flex-row gap-2 mt-10">
     <Button
       label="Success"
       severity="success"

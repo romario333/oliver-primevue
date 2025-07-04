@@ -84,4 +84,6 @@ All libraries are offered under the standard OSS licenses and can be used free o
 - localization
 - form validation
 - Shopify & Pohoda
+- Bundle Size
+- fix mobile view for the primevue
 - https://www.figma.com/community/file/1154678001663255824/prime-4-0-free-version-of-design-system-kit

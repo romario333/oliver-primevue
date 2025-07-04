@@ -10,26 +10,26 @@ This document evaluates candidate UI libraries for our upcoming app. I've create
 
 Both **Primevue** and **Vuetify** are well-maintained projects with long histories. Primevue is more flexible and backed by a dedicated company. Vuetify offers better ease of use out-of-the-box.
 
-**Shadcn-vue** raises concerns due to its "own your component" approach and uncertain long-term viability.
+**Shadcn-vue** raises concerns due to its "own your component code" approach and uncertain long-term viability.
 
 ## Project Health
 
 ### Contributor Activity
 
-Contributor statistics provide a snapshot of project health:
+Contributor statistics provide a good insight into project health:
 
 - [Primevue](https://github.com/primefaces/primevue/graphs/contributors): 3 active contributors
 - [Vuetify](https://github.com/vuetifyjs/vuetify/graphs/contributors): 2 active contributors
 - [Shadcn-vue](https://github.com/unovue/shadcn-vue/graphs/contributors), [Reka-ui](https://github.com/unovue/reka-ui/graphs/contributors): 1 active contributor
 
-PrimeVue clearly leads here due to corporate backing and sustained activity. Vuetify is a solid choice as well.
+**PrimeVue** clearly leads here due to corporate backing and sustained activity. **Vuetify** is a solid choice as well.
 
-Vuetify is a solid choice.
+**Shadcn-vue** seems to be essentially a one-man show.
 
 ### Long-term Sustainability
 
 - **PrimeVue** and **Vuetify** are mature, continuously maintained projects.
-- **Shadcn-vue** is newer (first commit in 2023), and activity is already slowing down, raising potential sustainability concerns. This is especially concerning because the project is a one-man show.
+- **Shadcn-vue** is newer (first commit in 2023), and activity is already slowing down, raising potential sustainability concerns.
 
 ### Popularity (Weekly npm Downloads)
 
@@ -46,20 +46,20 @@ Vuetify is a solid choice.
 
 **Vuetify** offers the best out-of-the-box experience, suitable for both desktop and mobile without significant customization. However, it ties you strictly to Material Design, limiting flexibility.
 
-**Primevue** requires a slightly higher initial effort. Notable issues:
+**Primevue** requires a slightly higher initial effort. Notable issues I ran into when working on the prototype:
 
 - [Missing top navigator component](https://github.com/primefaces/primevue/issues/771)
 - [Toast does not fit the screen on mobile](https://github.com/primefaces/primeng/issues/9930)
 
-These issues, while inconvenient, are straightforward to address on the application level.
+These issues, while inconvenient, are straightforward to address at the application level.
 
-### Customization
+## Customization
 
 - **Vuetify** offers limited flexibility due to adherence to Material Design.
 - **Primevue** offers following customization modes:
   - **Styled Mode**: Predefined themes customizable or replaceable with third-party themes.
   - **Unstyled Mode**: Components only provide functionality; developers implement the design (e.g., using Tailwind).
-  - **Volt**: A new PrimeTek project (2025) similar to Shadcn, enabling component-level ownership with Tailwind styling.
+  - **Volt**: A new PrimeTek project (2025) similar to Shadcn, enabling "own your component code" approach with Tailwind styling.
 
 ## Component Richness
 
